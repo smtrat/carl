@@ -186,7 +186,7 @@ namespace carl
          * Constructor which constructs the pointinterval at n.
          * @param n Location of the pointinterval.
          */
-        Interval(const Number& n) :
+        explicit Interval(const Number& n) :
 	        mContent(n),
 	        mLowerBoundType(BoundType::WEAK),
 	        mUpperBoundType(BoundType::WEAK)
@@ -201,7 +201,7 @@ namespace carl
          * @param lower The desired lower bound.
          * @param upper The desired upper bound.
          */
-        Interval(const Number& lower, const Number& upper):
+        explicit Interval(const Number& lower, const Number& upper):
 			mContent(), mLowerBoundType(), mUpperBoundType()
         {
             if (BOUNDS_OK(lower, BoundType::WEAK, upper, BoundType::WEAK))
@@ -351,7 +351,7 @@ namespace carl
          * @param upper The desired upper bound.
          */
         template<typename N = Number, DisableIf<std::is_same<N, double >> = dummy, DisableIf<is_rational<N >> = dummy >
-        Interval(double lower, double upper)
+        explicit Interval(double lower, double upper)
         {
             if (BOUNDS_OK(lower, BoundType::WEAK, upper, BoundType::WEAK))
             {
@@ -433,7 +433,7 @@ namespace carl
          * @param upper The desired upper bound.
          */
         template<typename N = Number, DisableIf<std::is_same<N, int >> = dummy>
-        Interval(int lower, int upper)
+        explicit Interval(int lower, int upper)
         {
             if (BOUNDS_OK(lower, BoundType::WEAK, upper, BoundType::WEAK))
             {
@@ -540,7 +540,7 @@ namespace carl
          * @param upperBoundType The desired upper bound type.
          */
         template<typename N = Number, DisableIf<std::is_same<N, unsigned int >> = dummy>
-        explicit Interval(unsigned int lower, BoundType lowerBoundType, unsigned int upper, BoundType upperBoundType)
+        Interval(unsigned int lower, BoundType lowerBoundType, unsigned int upper, BoundType upperBoundType)
         {
             if (BOUNDS_OK(lower, lowerBoundType, upper, upperBoundType))
             {
@@ -597,7 +597,7 @@ namespace carl
          * @param upper The desired upper bound.
          */
         template<typename Num = Number, typename Rational, EnableIf<std::is_floating_point<Num >> = dummy, DisableIf<std::is_same<Num, Rational >> = dummy>
-        Interval(Rational lower, Rational upper):
+        explicit Interval(Rational lower, Rational upper):
 			mContent(), mLowerBoundType(), mUpperBoundType()
         {
             *this = Interval<double>(lower, BoundType::WEAK, upper, BoundType::WEAK);
@@ -668,7 +668,7 @@ namespace carl
          * @param upper The desired upper bound.
          */
         template<typename Num = Number, typename Float, EnableIf<is_rational<Num >> = dummy, EnableIf<std::is_floating_point<Float >> = dummy, DisableIf<std::is_same<Num, Float >> = dummy>
-        Interval(Float lower, Float upper):
+        explicit Interval(Float lower, Float upper):
 			mContent(), mLowerBoundType(), mUpperBoundType()
         {
             *this = Interval<double>(lower, BoundType::WEAK, upper, BoundType::WEAK);
@@ -738,7 +738,7 @@ namespace carl
          * @param upper The desired upper bound.
          */
         template<typename Num = Number, typename Rational, EnableIf<is_rational<Num >> = dummy, EnableIf<is_rational<Rational >> = dummy, DisableIf<std::is_same<Num, Rational >> = dummy>
-        Interval(Rational lower, Rational upper):
+        explicit Interval(Rational lower, Rational upper):
 			mContent(), mLowerBoundType(), mUpperBoundType()
         {
             *this = Interval<double>(lower, BoundType::WEAK, upper, BoundType::WEAK);
